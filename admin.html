@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Admin - Quản lý CSKH Hoàng Anh</title>
+    <title>Admin - Đăng nhập hệ thống</title>
     <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
     <!-- Font Awesome -->
@@ -41,7 +41,47 @@
 </head>
 <body class="bg-slate-100 text-slate-800">
 
-    <div class="flex h-screen overflow-hidden">
+    <!-- LOGIN SCREEN (Visible by default if not logged in) -->
+    <div id="login-screen" class="fixed inset-0 z-50 bg-slate-900 flex items-center justify-center">
+        <div class="bg-white p-8 rounded-2xl shadow-2xl w-full max-w-sm animate-fade-in">
+            <div class="text-center mb-8">
+                <div class="inline-flex items-center justify-center w-16 h-16 bg-secondary text-white rounded-xl text-3xl font-bold mb-4 shadow-lg shadow-orange-500/30">
+                    HA
+                </div>
+                <h2 class="text-2xl font-bold text-slate-800">Quản trị viên</h2>
+                <p class="text-slate-500 text-sm">Đăng nhập để truy cập hệ thống</p>
+            </div>
+            
+            <form id="login-form" class="space-y-5">
+                <div>
+                    <label class="block text-xs font-bold text-slate-500 uppercase mb-1">Tài khoản</label>
+                    <div class="relative">
+                        <input type="text" id="username" class="w-full p-3 pl-10 border border-slate-300 rounded-lg focus:ring-2 focus:ring-secondary focus:border-transparent outline-none transition" placeholder="admin" required>
+                        <i class="fas fa-user absolute left-3 top-3.5 text-slate-400"></i>
+                    </div>
+                </div>
+                <div>
+                    <label class="block text-xs font-bold text-slate-500 uppercase mb-1">Mật khẩu</label>
+                    <div class="relative">
+                        <input type="password" id="password" class="w-full p-3 pl-10 border border-slate-300 rounded-lg focus:ring-2 focus:ring-secondary focus:border-transparent outline-none transition" placeholder="•••••" required>
+                        <i class="fas fa-lock absolute left-3 top-3.5 text-slate-400"></i>
+                    </div>
+                </div>
+                
+                <div id="login-error" class="hidden text-red-500 text-sm text-center font-medium bg-red-50 p-2 rounded">
+                    <i class="fas fa-exclamation-circle mr-1"></i> Sai tài khoản hoặc mật khẩu!
+                </div>
+
+                <button type="submit" class="w-full bg-secondary text-white font-bold py-3 rounded-lg hover:bg-orange-700 transition shadow-lg shadow-orange-500/30">
+                    Đăng nhập
+                </button>
+            </form>
+            <p class="text-center text-xs text-slate-400 mt-6">&copy; 2026 Hoàng Anh VLXD System</p>
+        </div>
+    </div>
+
+    <!-- MAIN APP (Hidden by default) -->
+    <div id="main-app" class="hidden flex h-screen overflow-hidden">
         
         <!-- Sidebar -->
         <aside class="w-64 bg-primary text-slate-300 flex flex-col shadow-xl z-20 flex-shrink-0">
@@ -103,7 +143,9 @@
                         <i class="fas fa-sync-alt group-hover:rotate-180 transition duration-500"></i>
                     </button>
                     <div class="h-6 w-px bg-slate-200"></div>
-                    <button class="text-sm text-red-600 hover:text-red-700 font-medium">Đăng xuất</button>
+                    <button onclick="logout()" class="text-sm text-red-600 hover:text-red-700 font-medium flex items-center gap-2">
+                        <i class="fas fa-sign-out-alt"></i> Đăng xuất
+                    </button>
                 </div>
             </header>
 
@@ -232,7 +274,7 @@
                     </div>
                 </div>
 
-                <!-- ORDERS VIEW (FULL FUNCTIONAL) -->
+                <!-- ORDERS VIEW -->
                 <div id="view-orders" class="hidden animate-fade-in flex flex-col h-[calc(100vh-8rem)]">
                     <!-- Orders Toolbar -->
                     <div class="bg-white p-4 rounded-xl shadow-sm border border-slate-200 mb-4 flex justify-between items-center shrink-0">
@@ -251,7 +293,7 @@
                         </div>
                     </div>
 
-                    <!-- Orders Layout: List (Left) & Detail (Right) -->
+                    <!-- Orders Layout -->
                     <div class="flex gap-4 h-full overflow-hidden">
                         <!-- Left: Order List -->
                         <div class="flex-1 bg-white rounded-xl shadow-sm border border-slate-200 flex flex-col overflow-hidden">
@@ -299,7 +341,6 @@
                                 </div>
                                 
                                 <div class="p-5 overflow-y-auto custom-scroll flex-1 space-y-5">
-                                    <!-- Progress Tracker Mini -->
                                     <div class="relative pt-2 pb-4">
                                         <div class="h-1 w-full bg-slate-100 rounded overflow-hidden">
                                             <div id="edit-progress-bar" class="h-full bg-secondary transition-all duration-500 w-0"></div>
@@ -311,7 +352,6 @@
                                         </div>
                                     </div>
 
-                                    <!-- Actions -->
                                     <div>
                                         <label class="block text-xs font-bold text-slate-500 uppercase mb-1.5">Cập nhật Trạng thái</label>
                                         <select id="edit-status-select" class="w-full p-2.5 border border-slate-300 rounded-lg focus:ring-2 focus:ring-secondary focus:border-transparent text-sm font-bold text-slate-700 bg-white">
@@ -407,13 +447,47 @@
 
     <!-- Logic Script -->
     <script>
-        // --- 1. CORE DATA LOGIC ---
+        // --- AUTH LOGIC ---
+        function checkAuth() {
+            const isLoggedIn = localStorage.getItem('ha_admin_logged_in') === 'true';
+            const loginScreen = document.getElementById('login-screen');
+            const mainApp = document.getElementById('main-app');
 
-        // Requests Data
+            if (isLoggedIn) {
+                loginScreen.classList.add('hidden');
+                mainApp.classList.remove('hidden');
+                loadData();
+            } else {
+                loginScreen.classList.remove('hidden');
+                mainApp.classList.add('hidden');
+            }
+        }
+
+        document.getElementById('login-form').addEventListener('submit', (e) => {
+            e.preventDefault();
+            const user = document.getElementById('username').value;
+            const pass = document.getElementById('password').value;
+            const errorMsg = document.getElementById('login-error');
+
+            if (user === 'admin' && pass === 'admin') {
+                localStorage.setItem('ha_admin_logged_in', 'true');
+                errorMsg.classList.add('hidden');
+                checkAuth();
+            } else {
+                errorMsg.classList.remove('hidden');
+            }
+        });
+
+        function logout() {
+            localStorage.removeItem('ha_admin_logged_in');
+            checkAuth();
+        }
+
+        // --- CORE DATA LOGIC ---
+        // Same as previous version, wrapped in checkAuth context
         function getRequests() { return JSON.parse(localStorage.getItem('ha_cskh_requests') || '[]'); }
         function saveRequests(data) { localStorage.setItem('ha_cskh_requests', JSON.stringify(data)); }
 
-        // Orders Data (New Functionality)
         const defaultOrders = [
             { id: 'HA-1024', customer: 'Nguyễn Văn A', phone: '0912.123.123', items: '10 Khối Cát Vàng, 5 Tấn Xi Măng', address: 'Khu 3, P. Quảng Yên', status: 'Đang vận chuyển', driver: 'Nguyễn Văn A - 14C-123.45', location: 'Ngã 3 Km11', timestamp: new Date().toISOString() },
             { id: 'HA-1025', customer: 'Trần Thị B', phone: '0987.654.321', items: '200 Cây Thép Phi 10', address: 'Xã Hiệp Hòa', status: 'Đã xác nhận', driver: '', location: '', timestamp: new Date(Date.now() - 3600000).toISOString() },
@@ -423,7 +497,6 @@
         function getOrders() {
             let data = localStorage.getItem('ha_cskh_orders');
             if (!data) {
-                // Initialize defaults
                 localStorage.setItem('ha_cskh_orders', JSON.stringify(defaultOrders));
                 return defaultOrders;
             }
@@ -441,18 +514,18 @@
             }
         }
 
-        // --- 2. RENDER FUNCTIONS ---
-
+        // --- RENDER FUNCTIONS ---
         function loadData() {
+            if (localStorage.getItem('ha_admin_logged_in') !== 'true') return;
+
             const requests = getRequests();
             const orders = getOrders();
 
-            // 1. Dashboard Stats
+            // Dashboard
             document.getElementById('dash-requests-count').innerText = requests.length;
             document.getElementById('dash-shipping-count').innerText = orders.filter(o => o.status === 'Đang vận chuyển').length;
             document.getElementById('dash-completed-count').innerText = orders.filter(o => o.status === 'Hoàn thành').length;
             
-            // Sidebar Badge
             const sidebarBadge = document.getElementById('sidebar-badge');
             if (requests.length > 0) {
                 sidebarBadge.classList.remove('hidden');
@@ -461,16 +534,13 @@
                 sidebarBadge.classList.add('hidden');
             }
 
-            // 2. Render Requests Table
             renderRequestsTable(requests);
             updateChart(requests);
             updateActivityLog(requests, orders);
-
-            // 3. Render Orders Table
             renderOrdersTable(orders);
         }
 
-        // --- REQUESTS LOGIC ---
+        // Requests Table Logic
         function renderRequestsTable(requests) {
             const tbody = document.getElementById('requests-table-body');
             const emptyState = document.getElementById('empty-state');
@@ -513,9 +583,8 @@
             }
         }
 
-        // --- ORDERS LOGIC (NEW) ---
+        // Orders Logic
         let currentEditingOrderId = null;
-
         function renderOrdersTable(orders) {
             const tbody = document.getElementById('orders-table-body');
             const emptyDiv = document.getElementById('orders-empty');
@@ -529,7 +598,6 @@
             } else {
                 emptyDiv.classList.add('hidden');
                 filteredOrders.forEach(order => {
-                    // Status Color
                     let statusClass = 'bg-slate-100 text-slate-600';
                     if(order.status === 'Đang vận chuyển') statusClass = 'bg-orange-100 text-secondary';
                     if(order.status === 'Hoàn thành') statusClass = 'bg-green-100 text-green-600';
@@ -559,15 +627,11 @@
             const order = orders.find(o => o.id === id);
             
             if(!order) return;
+            renderOrdersTable(orders); // Highlight row
 
-            // Highlight Row
-            renderOrdersTable(orders);
-
-            // Show Panel
             document.getElementById('no-order-selected').classList.add('hidden');
             document.getElementById('order-edit-form').classList.remove('hidden');
 
-            // Fill Form
             document.getElementById('edit-id').innerText = order.id;
             document.getElementById('edit-customer').innerText = `${order.customer} - ${order.phone}`;
             document.getElementById('edit-items').innerText = order.items;
@@ -577,7 +641,6 @@
             document.getElementById('edit-driver').value = order.driver || '';
             document.getElementById('edit-location').value = order.location || '';
 
-            // Update Status Badge & Progress
             const statusBadge = document.getElementById('edit-status-badge');
             const progress = document.getElementById('edit-progress-bar');
             
@@ -588,15 +651,14 @@
             else if(order.status === 'Đang vận chuyển') { statusBadge.classList.add('bg-orange-100','text-secondary'); progress.style.width = '66%'; }
             else if(order.status === 'Hoàn thành') { statusBadge.classList.add('bg-green-100','text-green-600'); progress.style.width = '100%'; progress.classList.add('bg-green-500'); }
             else { statusBadge.classList.add('bg-slate-200','text-slate-600'); progress.style.width = '10%'; }
-
-            if(order.status !== 'Hoàn thành') progress.classList.remove('bg-green-500');
+             if(order.status !== 'Hoàn thành') progress.classList.remove('bg-green-500');
         }
 
         function closeEditPanel() {
             currentEditingOrderId = null;
             document.getElementById('no-order-selected').classList.remove('hidden');
             document.getElementById('order-edit-form').classList.add('hidden');
-            loadData(); // clear highlight
+            loadData();
         }
 
         function saveOrderChanges() {
@@ -608,10 +670,9 @@
                 orders[idx].status = document.getElementById('edit-status-select').value;
                 orders[idx].driver = document.getElementById('edit-driver').value;
                 orders[idx].location = document.getElementById('edit-location').value;
-                
                 saveOrders(orders);
                 loadData();
-                selectOrder(currentEditingOrderId); // Refresh panel UI
+                selectOrder(currentEditingOrderId);
                 showToast(`Đã cập nhật đơn ${currentEditingOrderId}`);
             }
         }
@@ -620,21 +681,15 @@
             renderOrdersTable(getOrders());
         }
 
-        // Add Order Modal Functions
+        // Add Order Modal
         const addModal = document.getElementById('add-order-modal');
-        const modalContent = addModal.querySelector('div');
-        
         function openAddOrderModal() {
             addModal.classList.remove('hidden');
-            setTimeout(() => {
-                addModal.classList.remove('opacity-0');
-                modalContent.classList.remove('scale-95');
-            }, 10);
+            setTimeout(() => { addModal.classList.remove('opacity-0'); addModal.querySelector('div').classList.remove('scale-95'); }, 10);
         }
-
         function closeAddOrderModal() {
             addModal.classList.add('opacity-0');
-            modalContent.classList.add('scale-95');
+            addModal.querySelector('div').classList.add('scale-95');
             setTimeout(() => addModal.classList.add('hidden'), 300);
             document.getElementById('add-order-form').reset();
         }
@@ -653,14 +708,8 @@
                 location: '',
                 timestamp: new Date().toISOString()
             };
-
             const orders = getOrders();
-            // Check Duplicate
-            if(orders.find(o => o.id === newOrder.id)) {
-                alert('Mã đơn hàng này đã tồn tại!');
-                return;
-            }
-
+            if(orders.find(o => o.id === newOrder.id)) { alert('Mã đơn hàng này đã tồn tại!'); return; }
             orders.unshift(newOrder);
             saveOrders(orders);
             closeAddOrderModal();
@@ -668,7 +717,7 @@
             showToast('Đã tạo đơn hàng mới!');
         });
 
-        // --- CHART & LOGS ---
+        // Chart & Logs
         let myChart = null;
         function updateChart(requests) {
             const ctx = document.getElementById('chartRequestType');
@@ -688,54 +737,36 @@
                 type: 'doughnut',
                 data: {
                     labels: Object.keys(counts),
-                    datasets: [{
-                        data: Object.values(counts),
-                        backgroundColor: ['#ea580c', '#3b82f6', '#ef4444', '#10b981'],
-                        borderWidth: 0
-                    }]
+                    datasets: [{ data: Object.values(counts), backgroundColor: ['#ea580c', '#3b82f6', '#ef4444', '#10b981'], borderWidth: 0 }]
                 },
                 options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { position: 'bottom', labels: { boxWidth: 8, font: {size: 10} } } } }
             });
         }
 
         function updateActivityLog(requests, orders) {
-            // Combine logs
             const logs = [];
             requests.forEach(r => logs.push({ type: 'request', text: `Yêu cầu: ${r.type}`, user: r.name, time: r.timestamp }));
             orders.forEach(o => logs.push({ type: 'order', text: `Đơn hàng mới: ${o.id}`, user: o.customer, time: o.timestamp }));
             
             logs.sort((a,b) => new Date(b.time) - new Date(a.time));
             const recent = logs.slice(0, 4);
-            
             const logContainer = document.getElementById('activity-log');
             let html = '';
             recent.forEach(l => {
                 const color = l.type === 'request' ? 'bg-secondary' : 'bg-blue-500';
-                html += `
-                <div class="mb-5 relative animate-fade-in">
-                    <div class="absolute -left-[21px] top-1 w-3 h-3 ${color} rounded-full border-2 border-white ring-2 ring-slate-100"></div>
-                    <p class="text-sm font-bold text-slate-700">${l.text}</p>
-                    <p class="text-xs text-slate-500 mt-0.5">Khách: ${l.user}</p>
-                    <span class="text-[10px] text-slate-400">${new Date(l.time).toLocaleTimeString('vi-VN', {hour:'2-digit', minute:'2-digit'})}</span>
-                </div>`;
+                html += `<div class="mb-5 relative animate-fade-in"><div class="absolute -left-[21px] top-1 w-3 h-3 ${color} rounded-full border-2 border-white ring-2 ring-slate-100"></div><p class="text-sm font-bold text-slate-700">${l.text}</p><p class="text-xs text-slate-500 mt-0.5">Khách: ${l.user}</p><span class="text-[10px] text-slate-400">${new Date(l.time).toLocaleTimeString('vi-VN', {hour:'2-digit', minute:'2-digit'})}</span></div>`;
             });
             if(logs.length === 0) html = '<p class="text-xs text-slate-400 italic">Chưa có hoạt động</p>';
             logContainer.innerHTML = html;
         }
 
-        // --- UTILS ---
+        // Utils
         function switchTab(tabId) {
-            document.querySelectorAll('.sidebar-item').forEach(el => {
-                el.classList.remove('active', 'text-white');
-                el.classList.add('text-slate-300');
-            });
+            document.querySelectorAll('.sidebar-item').forEach(el => { el.classList.remove('active', 'text-white'); el.classList.add('text-slate-300'); });
             document.getElementById('nav-' + tabId).classList.add('active', 'text-white');
             document.getElementById('nav-' + tabId).classList.remove('text-slate-300');
-
             ['dashboard', 'requests', 'orders'].forEach(id => document.getElementById('view-' + id).classList.add('hidden'));
             document.getElementById('view-' + tabId).classList.remove('hidden');
-            
-            // Auto reload data
             loadData();
         }
 
@@ -753,18 +784,18 @@
             setTimeout(() => icon.classList.remove('fa-spin'), 1000);
         }
 
-        // --- INIT ---
+        // Init
         document.addEventListener('DOMContentLoaded', () => {
-            loadData();
-            // Sync with other tabs
+            checkAuth();
             window.addEventListener('storage', (e) => {
                 if (e.key === 'ha_cskh_requests' || e.key === 'ha_cskh_orders') {
-                    loadData();
-                    showToast('Dữ liệu đã được đồng bộ!');
+                    if (localStorage.getItem('ha_admin_logged_in') === 'true') {
+                        loadData();
+                        showToast('Dữ liệu đồng bộ!');
+                    }
                 }
             });
         });
-
     </script>
 </body>
 </html>
