@@ -1,0 +1,571 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CSKH - VLXD Hoàng Anh</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+    
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            scroll-behavior: smooth;
+        }
+        .hero-bg {
+            background-image: linear-gradient(rgba(15, 23, 42, 0.85), rgba(15, 23, 42, 0.7)), url('https://images.unsplash.com/photo-1581094794329-c8112a89af12?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+        }
+        .animate-fade-in {
+            animation: fadeIn 0.6s ease-out;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+    </style>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#0f172a', // Slate 900 (Khớp Admin)
+                        secondary: '#ea580c', // Orange 600 (Khớp Admin)
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="bg-slate-50 text-slate-800 flex flex-col min-h-screen">
+
+    <!-- Navigation -->
+    <nav class="bg-white/95 backdrop-blur-sm shadow-md fixed w-full z-50 border-b border-slate-100">
+        <div class="container mx-auto px-4 py-3 flex justify-between items-center">
+            <!-- Logo -->
+            <a href="#" class="flex items-center gap-3 group">
+                <div class="bg-secondary text-white p-2 rounded-lg font-bold text-xl shadow-lg shadow-orange-500/30 transition-transform group-hover:scale-105">HA</div>
+                <div>
+                    <h1 class="font-bold text-xl text-slate-800 leading-none">Hoàng Anh</h1>
+                    <p class="text-[10px] text-slate-500 font-bold tracking-widest mt-1 uppercase">Vật liệu xây dựng</p>
+                </div>
+            </a>
+
+            <!-- Desktop Menu -->
+            <div class="hidden md:flex items-center space-x-8 font-semibold text-slate-600">
+                <a href="#trang-chu" class="hover:text-secondary transition relative after:content-[''] after:absolute after:-bottom-1 after:left-0 after:w-0 after:h-0.5 after:bg-secondary after:transition-all hover:after:w-full">Trang chủ</a>
+                <a href="#tra-cuu" class="hover:text-secondary transition relative after:content-[''] after:absolute after:-bottom-1 after:left-0 after:w-0 after:h-0.5 after:bg-secondary after:transition-all hover:after:w-full">Tra cứu đơn hàng</a>
+                <a href="#dich-vu" class="hover:text-secondary transition relative after:content-[''] after:absolute after:-bottom-1 after:left-0 after:w-0 after:h-0.5 after:bg-secondary after:transition-all hover:after:w-full">Dịch vụ</a>
+                <a href="#lien-he" class="hover:text-secondary transition relative after:content-[''] after:absolute after:-bottom-1 after:left-0 after:w-0 after:h-0.5 after:bg-secondary after:transition-all hover:after:w-full">Liên hệ</a>
+                
+                <a href="admin.html" target="_blank" class="px-5 py-2 bg-slate-100 text-slate-700 rounded-full hover:bg-slate-800 hover:text-white transition-all shadow-sm border border-slate-200">
+                    <i class="fas fa-user-shield mr-2"></i>Admin
+                </a>
+            </div>
+
+            <!-- Mobile Menu Button -->
+            <button id="mobile-menu-btn" class="md:hidden text-2xl text-slate-700 hover:text-secondary transition">
+                <i class="fas fa-bars"></i>
+            </button>
+        </div>
+
+        <!-- Mobile Menu Panel -->
+        <div id="mobile-menu" class="hidden md:hidden bg-white border-t p-4 space-y-4 shadow-xl absolute w-full left-0 top-[70px]">
+            <a href="#trang-chu" class="block font-medium text-slate-600 hover:text-secondary">Trang chủ</a>
+            <a href="#tra-cuu" class="block font-medium text-slate-600 hover:text-secondary">Tra cứu đơn hàng</a>
+            <a href="#dich-vu" class="block font-medium text-slate-600 hover:text-secondary">Dịch vụ</a>
+            <a href="#lien-he" class="block font-medium text-slate-600 hover:text-secondary">Liên hệ</a>
+            <a href="admin.html" class="block font-bold text-secondary">Đăng nhập Admin</a>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="trang-chu" class="hero-bg min-h-[600px] flex items-center justify-center text-center px-4 pt-20">
+        <div class="max-w-4xl text-white animate-fade-in">
+            <span class="inline-block py-1 px-3 rounded-full bg-orange-500/20 border border-orange-500/50 text-orange-300 text-sm font-bold mb-6 backdrop-blur-sm">
+                <i class="fas fa-star mr-1"></i> Đối tác tin cậy của mọi công trình
+            </span>
+            <h2 class="text-4xl md:text-6xl font-bold mb-6 leading-tight">Hệ thống Chăm sóc Khách hàng <br/><span class="text-secondary">Hoàng Anh</span></h2>
+            <p class="text-lg md:text-xl mb-12 text-slate-300 font-light max-w-2xl mx-auto">Tra cứu vận đơn, hỗ trợ kỹ thuật và giải quyết khiếu nại nhanh chóng - Tất cả trong một nền tảng.</p>
+            
+            <div class="relative max-w-xl mx-auto group">
+                <div class="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
+                    <i class="fas fa-search text-slate-400"></i>
+                </div>
+                <input type="text" id="hero-search" placeholder="Nhập mã vận đơn (VD: HA-1024)..." class="w-full py-5 pl-12 pr-36 rounded-full text-slate-800 shadow-2xl focus:outline-none focus:ring-4 focus:ring-orange-500/40 transition-all border-0 text-lg">
+                <button onclick="scrollToTracking()" class="absolute right-2 top-2 bottom-2 bg-secondary hover:bg-orange-700 text-white px-6 rounded-full font-bold transition-all shadow-md flex items-center gap-2">
+                    Tra cứu <i class="fas fa-arrow-right"></i>
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Services Grid -->
+    <section id="dich-vu" class="container mx-auto px-4 py-20 -mt-20 relative z-10">
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+            <div class="bg-white p-8 rounded-2xl shadow-xl border border-slate-100 hover:-translate-y-2 transition-all duration-300 group">
+                <div class="w-16 h-16 bg-orange-50 rounded-2xl flex items-center justify-center text-secondary text-3xl mb-6 group-hover:bg-secondary group-hover:text-white transition-colors">
+                    <i class="fas fa-truck-fast"></i>
+                </div>
+                <h3 class="text-xl font-bold mb-3 text-slate-800">Theo dõi vận chuyển</h3>
+                <p class="text-slate-500 mb-6 leading-relaxed">Cập nhật vị trí xe chở vật liệu theo thời gian thực. Biết chính xác khi nào vật liệu đến chân công trình.</p>
+                <a href="#tra-cuu" class="text-secondary font-bold hover:underline inline-flex items-center gap-2">Kiểm tra ngay <i class="fas fa-chevron-right text-xs"></i></a>
+            </div>
+
+            <div class="bg-white p-8 rounded-2xl shadow-xl border border-slate-100 hover:-translate-y-2 transition-all duration-300 group">
+                <div class="w-16 h-16 bg-blue-50 rounded-2xl flex items-center justify-center text-blue-600 text-3xl mb-6 group-hover:bg-blue-600 group-hover:text-white transition-colors">
+                    <i class="fas fa-file-invoice-dollar"></i>
+                </div>
+                <h3 class="text-xl font-bold mb-3 text-slate-800">Quản lý công nợ</h3>
+                <p class="text-slate-500 mb-6 leading-relaxed">Minh bạch hóa đơn, chứng từ. Hỗ trợ đối chiếu công nợ và xuất hóa đơn VAT nhanh chóng.</p>
+                <a href="#lien-he" class="text-blue-600 font-bold hover:underline inline-flex items-center gap-2">Liên hệ kế toán <i class="fas fa-chevron-right text-xs"></i></a>
+            </div>
+
+            <div class="bg-white p-8 rounded-2xl shadow-xl border border-slate-100 hover:-translate-y-2 transition-all duration-300 group">
+                <div class="w-16 h-16 bg-green-50 rounded-2xl flex items-center justify-center text-green-600 text-3xl mb-6 group-hover:bg-green-600 group-hover:text-white transition-colors">
+                    <i class="fas fa-headset"></i>
+                </div>
+                <h3 class="text-xl font-bold mb-3 text-slate-800">Hỗ trợ 24/7</h3>
+                <p class="text-slate-500 mb-6 leading-relaxed">Đội ngũ kỹ thuật sẵn sàng tư vấn về chủng loại vật liệu (xi măng, sắt thép) phù hợp.</p>
+                <a href="#lien-he" class="text-green-600 font-bold hover:underline inline-flex items-center gap-2">Gửi yêu cầu <i class="fas fa-chevron-right text-xs"></i></a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Tracking Section (Connected to LocalStorage) -->
+    <section id="tra-cuu" class="bg-slate-50 py-20 border-y border-slate-200">
+        <div class="container mx-auto px-4">
+            <div class="text-center mb-12">
+                <span class="text-secondary font-bold tracking-widest uppercase text-sm">Real-time Tracking</span>
+                <h2 class="text-3xl md:text-4xl font-bold text-slate-800 mt-2">Đơn hàng của bạn đang ở đâu?</h2>
+            </div>
+
+            <div class="max-w-3xl mx-auto bg-white p-8 md:p-10 rounded-3xl shadow-lg border border-slate-100">
+                <form id="tracking-form" class="flex flex-col md:flex-row gap-4 mb-10">
+                    <div class="flex-1 relative">
+                        <input type="text" id="order-id" placeholder="Nhập mã đơn hàng (VD: HA-1024)" class="w-full p-4 pl-12 border border-slate-200 rounded-xl focus:outline-none focus:border-secondary focus:ring-4 focus:ring-orange-100 uppercase font-bold text-slate-700 tracking-wider">
+                        <i class="fas fa-barcode absolute left-4 top-1/2 -translate-y-1/2 text-slate-400 text-lg"></i>
+                    </div>
+                    <button type="submit" class="bg-slate-800 text-white px-8 py-4 rounded-xl font-bold hover:bg-slate-900 transition shadow-lg flex items-center justify-center gap-2 whitespace-nowrap">
+                        <i class="fas fa-search"></i> Tra cứu
+                    </button>
+                </form>
+
+                <!-- Tracking Result Container -->
+                <div id="tracking-result" class="hidden animate-fade-in">
+                    <div class="border-t border-slate-100 pt-8">
+                        <!-- Summary -->
+                        <div class="flex flex-col md:flex-row justify-between items-start md:items-center mb-8 gap-4">
+                            <div>
+                                <p class="text-sm text-slate-500 mb-1">Mã đơn hàng: <span class="font-bold text-slate-800 text-lg" id="res-id">...</span></p>
+                                <p class="font-bold text-slate-800 text-xl" id="res-items">...</p>
+                                <p class="text-sm text-slate-500 mt-1"><i class="fas fa-map-marker-alt text-red-500"></i> <span id="res-address">...</span></p>
+                            </div>
+                            <!-- Dynamic Status Badge -->
+                            <div id="res-status-badge"></div>
+                        </div>
+
+                        <!-- Driver Info -->
+                        <div id="res-driver-section" class="bg-slate-50 p-4 rounded-xl border border-slate-200 mb-8 flex items-center gap-4">
+                            <div class="w-12 h-12 bg-slate-200 rounded-full flex items-center justify-center text-slate-500 text-xl shrink-0">
+                                <i class="fas fa-steering-wheel"></i>
+                            </div>
+                            <div class="flex-1">
+                                <p class="text-xs text-slate-500 uppercase font-bold">Thông tin tài xế</p>
+                                <p class="font-bold text-slate-800" id="res-driver">...</p>
+                            </div>
+                        </div>
+
+                        <!-- Timeline -->
+                        <div class="relative pl-8 space-y-8 before:content-[''] before:absolute before:left-[11px] before:top-2 before:bottom-2 before:w-0.5 before:bg-slate-200">
+                            
+                            <!-- Step 1: Confirmed -->
+                            <div class="relative timeline-step" id="step-1">
+                                <div class="timeline-dot absolute -left-[29px] w-6 h-6 bg-slate-300 rounded-full border-4 border-white shadow-sm z-10"></div>
+                                <h4 class="font-bold text-slate-800 timeline-title">Đơn hàng đã xác nhận</h4>
+                                <p class="text-xs text-slate-500 timeline-time">Hệ thống đã ghi nhận đơn</p>
+                            </div>
+                            
+                            <!-- Step 2: Loading -->
+                            <div class="relative timeline-step" id="step-2">
+                                <div class="timeline-dot absolute -left-[29px] w-6 h-6 bg-slate-300 rounded-full border-4 border-white shadow-sm z-10"></div>
+                                <h4 class="font-bold text-slate-800 timeline-title">Đã bốc hàng lên xe</h4>
+                                <p class="text-xs text-slate-500 timeline-time">Tại kho Hoàng Anh</p>
+                            </div>
+                            
+                            <!-- Step 3: Shipping -->
+                            <div class="relative timeline-step" id="step-3">
+                                <div class="timeline-dot absolute -left-[29px] w-6 h-6 bg-slate-300 rounded-full border-4 border-white shadow-sm z-10"></div>
+                                <h4 class="font-bold text-slate-800 timeline-title">Đang vận chuyển</h4>
+                                <p class="text-xs text-slate-500 timeline-time">Đang di chuyển đến công trình</p>
+                                <div id="res-location-box" class="hidden mt-2">
+                                    <p class="text-sm text-slate-600 bg-orange-50 border border-orange-100 p-2 rounded inline-block shadow-sm">
+                                        <i class="fas fa-map-pin text-red-500 mr-1"></i> <span id="res-location">...</span>
+                                    </p>
+                                </div>
+                            </div>
+                            
+                            <!-- Step 4: Completed -->
+                            <div class="relative timeline-step" id="step-4">
+                                <div class="timeline-dot absolute -left-[29px] w-6 h-6 bg-slate-300 rounded-full border-4 border-white shadow-sm z-10"></div>
+                                <h4 class="font-bold text-slate-800 timeline-title">Giao hàng thành công</h4>
+                                <p class="text-xs text-slate-500 timeline-time">Đơn hàng hoàn tất</p>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Form (Saves to Admin Requests) -->
+    <section id="lien-he" class="bg-white py-20">
+        <div class="container mx-auto px-4">
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+                <!-- Info -->
+                <div>
+                    <span class="text-secondary font-bold uppercase tracking-widest text-sm">Hỗ trợ khách hàng</span>
+                    <h2 class="text-3xl md:text-4xl font-bold text-slate-800 mt-2 mb-6">Chúng tôi có thể giúp gì cho bạn?</h2>
+                    <p class="text-slate-600 mb-8 text-lg leading-relaxed">
+                        Mọi thắc mắc về đơn hàng, chất lượng sản phẩm hay quy trình thanh toán sẽ được đội ngũ CSKH giải đáp trong vòng 30 phút.
+                    </p>
+
+                    <div class="space-y-6">
+                        <div class="flex items-start gap-4 p-4 rounded-xl bg-slate-50 border border-slate-100 hover:border-secondary transition-colors group">
+                            <div class="bg-white p-3 rounded-full text-secondary shadow-sm group-hover:bg-secondary group-hover:text-white transition"><i class="fas fa-phone-alt"></i></div>
+                            <div>
+                                <h4 class="font-bold text-slate-800">Hotline Kinh Doanh</h4>
+                                <p class="text-slate-600">0912.345.678 (Mr. Hoàng)</p>
+                            </div>
+                        </div>
+                        <div class="flex items-start gap-4 p-4 rounded-xl bg-slate-50 border border-slate-100 hover:border-secondary transition-colors group">
+                            <div class="bg-white p-3 rounded-full text-secondary shadow-sm group-hover:bg-secondary group-hover:text-white transition"><i class="fas fa-envelope"></i></div>
+                            <div>
+                                <h4 class="font-bold text-slate-800">Email Hỗ Trợ</h4>
+                                <p class="text-slate-600">hotro@vlxdhoanganh.vn</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Form -->
+                <div class="bg-white p-8 md:p-10 rounded-3xl shadow-2xl border border-slate-100 relative overflow-hidden">
+                    <div class="absolute top-0 left-0 w-full h-2 bg-gradient-to-r from-slate-800 to-secondary"></div>
+                    <h3 class="text-2xl font-bold mb-6 text-slate-800">Gửi yêu cầu hỗ trợ</h3>
+                    
+                    <form id="contact-form" class="space-y-5">
+                        <div class="grid grid-cols-2 gap-5">
+                            <div>
+                                <label class="block text-sm font-bold text-slate-700 mb-2">Họ tên</label>
+                                <input type="text" id="form-name" class="w-full p-3 bg-slate-50 border border-slate-200 rounded-lg focus:ring-2 focus:ring-secondary focus:bg-white transition outline-none" placeholder="Nguyễn Văn A" required>
+                            </div>
+                            <div>
+                                <label class="block text-sm font-bold text-slate-700 mb-2">Số điện thoại</label>
+                                <input type="tel" id="form-phone" class="w-full p-3 bg-slate-50 border border-slate-200 rounded-lg focus:ring-2 focus:ring-secondary focus:bg-white transition outline-none" placeholder="0912..." required>
+                            </div>
+                        </div>
+                        <div>
+                            <label class="block text-sm font-bold text-slate-700 mb-2">Loại yêu cầu</label>
+                            <select id="form-type" class="w-full p-3 bg-slate-50 border border-slate-200 rounded-lg focus:ring-2 focus:ring-secondary focus:bg-white transition outline-none text-slate-600">
+                                <option value="Yêu cầu báo giá">Yêu cầu báo giá</option>
+                                <option value="Kiểm tra đơn hàng">Kiểm tra đơn hàng</option>
+                                <option value="Khiếu nại dịch vụ">Khiếu nại dịch vụ</option>
+                                <option value="Khác">Khác</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label class="block text-sm font-bold text-slate-700 mb-2">Nội dung</label>
+                            <textarea id="form-content" rows="4" class="w-full p-3 bg-slate-50 border border-slate-200 rounded-lg focus:ring-2 focus:ring-secondary focus:bg-white transition outline-none" placeholder="Nhập nội dung cần hỗ trợ..." required></textarea>
+                        </div>
+                        <button type="submit" class="w-full bg-secondary text-white font-bold py-4 rounded-lg hover:bg-orange-700 transition shadow-lg transform hover:-translate-y-1">
+                            Gửi yêu cầu ngay
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-primary text-white pt-16 pb-8 border-t border-slate-800">
+        <div class="container mx-auto px-4">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-12 mb-12">
+                <div class="md:col-span-2">
+                    <div class="flex items-center gap-2 mb-4">
+                        <div class="bg-secondary text-white p-1 rounded font-bold text-lg">HA</div>
+                        <h2 class="text-2xl font-bold">VLXD HOÀNG ANH</h2>
+                    </div>
+                    <p class="text-slate-400 leading-relaxed pr-8">
+                        Đơn vị cung cấp vật liệu xây dựng hàng đầu tại Quảng Ninh. Cam kết chất lượng, đủ số lượng và tiến độ giao hàng nhanh nhất cho mọi công trình.
+                    </p>
+                </div>
+                <div>
+                    <h4 class="font-bold text-lg mb-4 text-white">Liên kết nhanh</h4>
+                    <ul class="space-y-2 text-slate-400">
+                        <li><a href="#" class="hover:text-secondary transition">Về chúng tôi</a></li>
+                        <li><a href="#" class="hover:text-secondary transition">Chính sách bảo mật</a></li>
+                        <li><a href="#" class="hover:text-secondary transition">Điều khoản sử dụng</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="font-bold text-lg mb-4 text-white">Kết nối</h4>
+                    <div class="flex gap-4">
+                        <a href="#" class="w-10 h-10 rounded-full bg-slate-800 flex items-center justify-center hover:bg-secondary transition"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#" class="w-10 h-10 rounded-full bg-slate-800 flex items-center justify-center hover:bg-secondary transition"><i class="fab fa-zalo"></i></a>
+                    </div>
+                </div>
+            </div>
+            <div class="border-t border-slate-800 pt-8 text-center text-slate-500 text-sm">
+                &copy; 2026 Doanh nghiệp tư nhân Hoàng Anh. Designed for Demo.
+            </div>
+        </div>
+    </footer>
+
+    <!-- Toast Notification -->
+    <div id="toast" class="fixed bottom-5 right-5 bg-white border-l-4 border-green-500 text-slate-800 px-6 py-4 rounded shadow-2xl transform translate-y-32 transition-all duration-300 z-50 flex items-center gap-4">
+        <div class="bg-green-100 p-2 rounded-full text-green-500">
+            <i class="fas fa-check"></i>
+        </div>
+        <div>
+            <h4 class="font-bold text-sm">Gửi thành công!</h4>
+            <p class="text-xs text-slate-500">Yêu cầu của bạn đã được chuyển đến CSKH.</p>
+        </div>
+    </div>
+
+    <!-- Script Logic -->
+    <script>
+        // --- 1. CORE LOGIC ---
+
+        // Local Storage Helpers (must match Admin)
+        const defaultOrders = [
+            { id: 'HA-1024', customer: 'Nguyễn Văn A', phone: '0912.123.123', items: '10 Khối Cát Vàng, 5 Tấn Xi Măng', address: 'Khu 3, P. Quảng Yên', status: 'Đang vận chuyển', driver: 'Nguyễn Văn A - 14C-123.45', location: 'Ngã 3 Km11', timestamp: new Date().toISOString() },
+            { id: 'HA-1025', customer: 'Trần Thị B', phone: '0987.654.321', items: '200 Cây Thép Phi 10', address: 'Xã Hiệp Hòa', status: 'Đã xác nhận', driver: '', location: '', timestamp: new Date().toISOString() },
+             { id: 'HA-1023', customer: 'Lê Văn C', phone: '0909.888.777', items: '5000 Gạch Chỉ', address: 'P. Yên Giang', status: 'Hoàn thành', driver: 'Lê Văn X - 14C-999.99', location: 'Đã giao', timestamp: new Date().toISOString() }
+        ];
+
+        function getOrders() {
+            // Check if storage has data, if not use defaults (so user can test immediately)
+            let data = localStorage.getItem('ha_cskh_orders');
+            if(!data) {
+                localStorage.setItem('ha_cskh_orders', JSON.stringify(defaultOrders));
+                return defaultOrders;
+            }
+            return JSON.parse(data);
+        }
+
+        function saveRequest(request) {
+            let requests = JSON.parse(localStorage.getItem('ha_cskh_requests') || '[]');
+            requests.unshift(request);
+            localStorage.setItem('ha_cskh_requests', JSON.stringify(requests));
+        }
+
+        // --- 2. UI INTERACTIONS ---
+
+        // Mobile Menu
+        const menuBtn = document.getElementById('mobile-menu-btn');
+        const mobileMenu = document.getElementById('mobile-menu');
+        menuBtn.addEventListener('click', () => {
+            mobileMenu.classList.toggle('hidden');
+        });
+
+        // Search Handlers
+        function scrollToTracking() {
+            const heroInput = document.getElementById('hero-search');
+            const mainInput = document.getElementById('order-id');
+            const section = document.getElementById('tra-cuu');
+            
+            if(heroInput.value) mainInput.value = heroInput.value;
+            section.scrollIntoView({ behavior: 'smooth' });
+            
+            if(mainInput.value) {
+                setTimeout(() => performTracking(), 600);
+            }
+        }
+
+        const trackingForm = document.getElementById('tracking-form');
+        trackingForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            performTracking();
+        });
+
+        function performTracking() {
+            const btn = trackingForm.querySelector('button');
+            const input = document.getElementById('order-id');
+            const resultDiv = document.getElementById('tracking-result');
+            
+            if(!input.value.trim()) {
+                alert('Vui lòng nhập mã đơn hàng!');
+                return;
+            }
+
+            // Simulate Loading
+            const originalContent = btn.innerHTML;
+            btn.innerHTML = '<i class="fas fa-circle-notch fa-spin"></i> Đang tìm...';
+            btn.disabled = true;
+
+            setTimeout(() => {
+                btn.innerHTML = originalContent;
+                btn.disabled = false;
+                
+                const queryId = input.value.trim().toUpperCase();
+                const orders = getOrders();
+                const order = orders.find(o => o.id === queryId);
+
+                if (order) {
+                    renderOrderResult(order);
+                    resultDiv.classList.remove('hidden');
+                    // Reset Animation
+                    resultDiv.classList.remove('animate-fade-in');
+                    void resultDiv.offsetWidth;
+                    resultDiv.classList.add('animate-fade-in');
+                } else {
+                    alert(`Không tìm thấy đơn hàng mã ${queryId}. Vui lòng kiểm tra lại.`);
+                    resultDiv.classList.add('hidden');
+                }
+            }, 600);
+        }
+
+        function renderOrderResult(order) {
+            document.getElementById('res-id').innerText = order.id;
+            document.getElementById('res-items').innerText = order.items;
+            document.getElementById('res-address').innerText = order.address;
+            
+            // Driver
+            const driverDiv = document.getElementById('res-driver-section');
+            if(order.driver) {
+                document.getElementById('res-driver').innerText = order.driver;
+                driverDiv.classList.remove('hidden');
+            } else {
+                driverDiv.classList.add('hidden');
+            }
+
+            // Status Badge
+            const badgeDiv = document.getElementById('res-status-badge');
+            let badgeClass = 'bg-slate-100 text-slate-600';
+            let icon = 'fas fa-box';
+            let label = order.status;
+
+            if (order.status === 'Đang vận chuyển') {
+                badgeClass = 'bg-orange-100 text-secondary border border-orange-200';
+                icon = 'fas fa-truck-fast';
+                label = 'Đang vận chuyển';
+            } else if (order.status === 'Hoàn thành') {
+                badgeClass = 'bg-green-100 text-green-600 border border-green-200';
+                icon = 'fas fa-check-circle';
+            } else if (order.status === 'Đã xác nhận') {
+                badgeClass = 'bg-blue-100 text-blue-600 border border-blue-200';
+                icon = 'fas fa-clipboard-check';
+            }
+
+            badgeDiv.innerHTML = `
+                <span class="${badgeClass} px-4 py-2 rounded-lg font-bold text-sm flex items-center gap-2 shadow-sm">
+                    ${order.status === 'Đang vận chuyển' ? `
+                    <span class="relative flex h-3 w-3">
+                      <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-orange-400 opacity-75"></span>
+                      <span class="relative inline-flex rounded-full h-3 w-3 bg-secondary"></span>
+                    </span>` : `<i class="${icon}"></i>`}
+                    ${label}
+                </span>
+            `;
+
+            // Location
+            if (order.status === 'Đang vận chuyển' && order.location) {
+                document.getElementById('res-location-box').classList.remove('hidden');
+                document.getElementById('res-location').innerText = order.location;
+            } else {
+                document.getElementById('res-location-box').classList.add('hidden');
+            }
+
+            // Timeline Logic
+            updateTimeline(order.status);
+        }
+
+        function updateTimeline(status) {
+            const steps = [1, 2, 3, 4];
+            let activeIndex = 0;
+            
+            if (status === 'Đã xác nhận') activeIndex = 1;
+            else if (status === 'Đã bốc hàng') activeIndex = 2;
+            else if (status === 'Đang vận chuyển') activeIndex = 3;
+            else if (status === 'Hoàn thành') activeIndex = 4;
+            else if (status === 'Đã hủy') activeIndex = 0;
+
+            steps.forEach(step => {
+                const el = document.getElementById(`step-${step}`);
+                const dot = el.querySelector('.timeline-dot');
+                const title = el.querySelector('.timeline-title');
+                
+                // Reset
+                dot.className = 'timeline-dot absolute -left-[29px] w-6 h-6 rounded-full border-4 border-white shadow-sm z-10';
+                title.classList.remove('text-secondary', 'text-green-600', 'text-slate-800');
+                title.classList.add('text-slate-800');
+                el.style.opacity = '0.4';
+
+                if (step <= activeIndex) {
+                    el.style.opacity = '1';
+                    if (step === activeIndex && status === 'Đang vận chuyển') {
+                        // Current Active Shipping
+                        dot.classList.add('bg-secondary', 'animate-pulse');
+                        title.classList.replace('text-slate-800', 'text-secondary');
+                    } else if (step === activeIndex && status === 'Hoàn thành') {
+                        // Completed
+                        dot.classList.add('bg-green-500');
+                        title.classList.replace('text-slate-800', 'text-green-600');
+                    } else {
+                        // Past steps
+                        dot.classList.add('bg-green-500');
+                    }
+                } else {
+                    // Future steps
+                    dot.classList.add('bg-slate-300');
+                }
+            });
+        }
+
+        // Contact Form Logic
+        const contactForm = document.getElementById('contact-form');
+        const toast = document.getElementById('toast');
+
+        contactForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            
+            const newRequest = {
+                id: 'REQ-' + Math.floor(1000 + Math.random() * 9000),
+                name: document.getElementById('form-name').value,
+                phone: document.getElementById('form-phone').value,
+                type: document.getElementById('form-type').value,
+                content: document.getElementById('form-content').value,
+                status: 'Mới',
+                statusClass: 'bg-yellow-100 text-yellow-700',
+                timestamp: new Date().toISOString()
+            };
+
+            saveRequest(newRequest);
+
+            // Show Toast
+            toast.classList.remove('translate-y-32');
+            contactForm.reset();
+            setTimeout(() => toast.classList.add('translate-y-32'), 3000);
+        });
+
+        // Listen for storage changes (Sync with Admin instantly)
+        window.addEventListener('storage', (e) => {
+            if (e.key === 'ha_cskh_orders') {
+                const input = document.getElementById('order-id');
+                // Only auto-update if user is currently viewing a result
+                if (input.value && !document.getElementById('tracking-result').classList.contains('hidden')) {
+                     performTracking();
+                }
+            }
+        });
+
+    </script>
+</body>
+</html>
